@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EditableImageContent index{% endblock %}
+
+{% block body %}
+    <h1>EditableImageContent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>SrcContent</th>
+                <th>Tag</th>
+                <th>Page</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for editable_image_content in editable_image_contents %}
+            <tr>
+                <td>{{ editable_image_content.id }}</td>
+                <td>{{ editable_image_content.srcContent }}</td>
+                <td>{{ editable_image_content.tag }}</td>
+                <td>{{ editable_image_content.page }}</td>
+                <td>{{ editable_image_content.createdAt ? editable_image_content.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ editable_image_content.updatedAt ? editable_image_content.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_editable_image_content_show', {'id': editable_image_content.id}) }}">show</a>
+                    <a href="{{ path('app_editable_image_content_edit', {'id': editable_image_content.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_editable_image_content_new') }}">Create new</a>
+{% endblock %}
