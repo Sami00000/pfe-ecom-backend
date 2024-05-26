@@ -1,0 +1,38 @@
+{% extends "sidebar.html.twig" %}
+{% block section %}
+    {% for question in questions %}
+    <div class="question-container">
+        <div class="firstandlastname">
+            <div class="firstname">
+            <span>First Name </span>
+            <div>
+                <p>{{question.getSenderFirstname()}}</p>
+                <span class="copy-icon" title="Copy"><i class="fa-solid fa-copy"></i></span>
+            </div>
+            </div>
+            <div class="lastname">
+            <span>Last Name </span>
+            <div>
+                <p>{{question.getSenderLastname()}}</p>
+                <span class="copy-icon" title="Copy"><i class="fa-solid fa-copy"></i></span>
+            </div>
+            </div>
+        </div>
+        <div class="email">
+            <span>Email</span>
+            <div>
+                <p>{{question.getSenderEmail()}}</p>
+                <span class="copy-icon" title="Copy"><i class="fa-solid fa-copy"></i></span>
+            </div>
+        </div>
+        <div class="question-text"> 
+        <span>Question </span>
+        <div>
+            <p>{{question.getQuestionText()}}</p>
+            <span class="copy-icon" title="Copy"><i class="fa-solid fa-copy"></i></span>
+        </div>
+        </div>
+    </div>
+
+    {% endfor %}
+{% endblock %}
