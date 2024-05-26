@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\EditableTextContent;
@@ -37,15 +36,30 @@ class EditableTextContentController extends AbstractController
                 $textContent = new EditableTextContent();
                 $textContent->setTag($tag);
                 $textContent->setPage($page);
+                $textContent->setTextContent(''); // Set an initial empty value or default content if necessary
+                $this->entityManager->persist($textContent);
             }
-
-            $textContent->setTextContent(''); // Set an initial empty value or default content if necessary
-
-            $this->entityManager->persist($textContent);
         }
 
         $this->entityManager->flush();
 
         return new JsonResponse(['status' => 'success'], 200);
+    }
+
+    #[Route('/api/get-text-content', name: 'get_text_content', methods: ['GET'])]
+    public function getTextContent(): JsonResponse
+    {
+        $textContents = $this->repository->findAll();
+        $data = [];
+
+        foreach ($textContents as $textContent) {
+            $data[] = [
+                'tag' => $textContent->getTag(),
+                'page' => $textContent->getPage(),
+                'textContent' => $textContent->getTextContent()
+            ];
+        }
+
+        return new JsonResponse($data, 200);
     }
 }
